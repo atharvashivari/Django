@@ -89,13 +89,15 @@
 <body>
     <div class="container">
         <h2 class="text-center mb-4 text-primary">Product List</h2>
+        
         <div class="row">
-            {% for pro in prod %}
+            {% for pro in pro %}
             <div class="col-md-6">
                 <div class="product-card p-3 mb-4">
                     <div class="product-name">{{ pro.name }}</div>
                     <div class="product-desc">{{ pro.desc }}</div>
                     <div class="product-price">₹{{ pro.price }}</div>
+
                     {% if pro.image %}
                     <img src="{{ pro.image.url }}" alt="Product Image" class="product-image">
                     {% endif %}
@@ -107,14 +109,15 @@
                                 <i class="bi bi-trash"></i> Delete
                             </button>
                         </form>
-                        <form action="{% url 'update_data' pro.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success update-button">
-                                <i class="bi bi-pencil-square"></i> Update
-                            </button>
-                        </form>
+                        <a href="{% url 'update_data' pro.id %}" class="btn btn-success update-button">
+                            <i class="bi bi-pencil-square"></i> Update
+                        </a>
                     </div>
                 </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No products available.</p>
             </div>
             {% endfor %}
         </div>

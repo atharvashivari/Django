@@ -11,17 +11,17 @@ def home(request):
             fm= ProductForm()
     prod = Product.objects.all()
     return render(request,'electronics/home.html',
-    {"prod":prod, "form":fm})
+    {"pro":prod, "form":fm})
 
 def update_data(request,id):
+    pi= Product.objects.get(pk=id)
     if request.method == "POST":
-        pi= Product.objects.get(pk=id)
         fm= ProductForm(request.POST,request.FILES, instance=pi)
         if fm.is_valid():
             fm.save()
-        else:
-            pi= Product.objects.get(pk=id)
-            fm= ProductForm(instance=pi)
+    else:
+        pi= Product.objects.get(pk=id)
+        fm= ProductForm(instance=pi)
     return render(request,'electronics/update.html',{'form':fm})
 
 def delete_data(request,id):
